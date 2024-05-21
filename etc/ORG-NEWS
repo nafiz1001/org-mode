@@ -11,6 +11,88 @@ See the end of the file for license conditions.
 
 Please send Org bug reports to mailto:emacs-orgmode@gnu.org.
 
+* Version 9.8 (not released yet)
+
+** Important announcements and breaking changes
+
+# Here, we list the *most important* changes and changes that _likely_
+# require user action for most Org mode users.
+# Sorted from most important to least important.
+
+*** Org mode may throw an error when attempting to include remote unsafe resource noninteractively
+
+Previously, when ~org-resource-download-policy~ is ~ask~ (default),
+and Emacs is running in batch mode, Org mode simply skipped unsafe
+remote resources in the =#+include:='s.  Now, an error is thrown to
+avoid seemingly ignored =#+include= statements when publishing via
+batch scripts.
+
+** New features
+
+# We list the most important features, and the features that may
+# require user action to be used.
+
+** =ol.el=: New =shortdoc= link type
+
+You can now create links to =shortdoc= documentation groups for Emacs
+Lisp functions (see =M-x shortdoc-display-group=).  Requires Emacs 28
+or newer.
+
+** New and changed options
+
+# Chanes deadling with changing default values of customizations,
+# adding new customizations, or changing the interpretation of the
+# existing customizations.
+
+*** Allow headline/olp target in ~org-capture-templates~ to be a function/variable
+
+The variable ~org-capture-templates~ accepts a target specification as
+function or symbol for headline (~file+headline~) and olp (~file+olp~
+and ~file+olp+datetree~).
+
+*** New =%\*N= placeholder in ~org-capture-templates~
+
+The new placeholder is like =%\N=, gives access not only to the
+=%^{prompt}= values, but also to =%^{prompt}X= values.
+
+*** The default value of ~org-babel-latex-process-alist~ is no longer taken from ~org-preview-latex-process-alist~
+
+The default value used to be pulled from =dvipng= process type from
+~org-preview-latex-process-alist~.  Now, it defaults to using
+=latexmk= (when available), or running =latex= multiple times, so that
+all the references are resolved in the generated png.
+
+** New functions and changes in function arguments
+
+# This also includes changes in function behavior from Elisp perspective.
+
+** Miscellaneous
+*** Trailing =-= is now allowed in plain links
+
+Previously, plain links like
+
+: https://domain/test-
+
+did not include the trailing =-= punctuation.
+
+Now, the =-= is allowed at the end, and is considered a part of the plain link.
+
+#+begin_quote
+These types of links will likely be encountered for sites where anchor
+targets are automatically generated from documentation headings which
+are questions.
+         https://list.orgmode.org/orgmode/87sexh9ddv.fsf@ice9.digital/
+#+end_quote
+
+*** =org-attach= now considers symlinked files when searching pre-existing attach dirs
+
+When Org buffer is opened from a symlink, Org mode looks into the
+original file directory when searching if an attach directory already exists.
+This way, attachments will remain accessible when opening symlinked Org file.
+
+When no attach dir exists, Org mode will still prefer creating it in
+the "default" directory - where the symlink is located.
+
 * Version 9.7
 
 ** Important announcements and breaking changes
